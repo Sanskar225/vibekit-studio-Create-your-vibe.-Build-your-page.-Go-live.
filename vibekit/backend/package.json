@@ -1,0 +1,26 @@
+{
+  "name": "vibekit-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VibeKit Studio — Netlify Functions API",
+  "scripts": {
+    "dev": "netlify dev",
+    "migrate": "node migrations/run.js",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.6.0",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.6.0",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^3.3.7",
+    "nodemailer": "^6.9.8",
+    "pg": "^8.11.3",
+    "slugify": "^1.6.6",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": { "node": ">=18.0.0" }
+}

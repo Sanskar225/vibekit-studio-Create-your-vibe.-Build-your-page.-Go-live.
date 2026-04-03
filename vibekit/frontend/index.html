@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>VibeKit Studio — Generate a theme, build a mini-site, publish it.</title>
+  <meta name="description" content="VibeKit Studio: 6 design themes, live page builder, instant publish." />
+  <meta name="theme-color" content="#0A0A0F" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="VibeKit Studio" />
+  <meta property="og:description" content="Generate a theme, build a mini-site, publish it." />
+  <meta property="og:type"        content="website" />
+
+  <!-- Fonts: Clash Display + Satoshi (Fontshare) + JetBrains Mono (Bunny) -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.bunny.net"  crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500&display=swap" rel="stylesheet" />
+
+  <!-- Three.js + Vanta.js (must load before React app) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"   crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Prevent flash of unstyled content */
+    body { background: #0A0A0F; margin: 0; }
+    #root { min-height: 100vh; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

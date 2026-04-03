@@ -1,0 +1,120 @@
+[build]
+  command   = "echo Build done"
+  functions = "netlify/functions"
+  publish   = "public"
+
+[functions]
+  node_bundler   = "esbuild"
+  included_files = ["lib/**"]
+
+[dev]
+  command    = "echo API ready"
+  port       = 8888
+  targetPort = 3000
+  autoLaunch = false
+
+[[redirects]]
+  from   = "/api/auth/signup"
+  to     = "/.netlify/functions/auth/signup"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/login"
+  to     = "/.netlify/functions/auth/login"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/logout"
+  to     = "/.netlify/functions/auth/logout"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/me"
+  to     = "/.netlify/functions/auth/me"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/refresh"
+  to     = "/.netlify/functions/auth/refresh"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/slug-check"
+  to     = "/.netlify/functions/pages/slug-check"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/publish"
+  to     = "/.netlify/functions/pages/publish"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/unpublish"
+  to     = "/.netlify/functions/pages/publish"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/duplicate"
+  to     = "/.netlify/functions/pages/duplicate"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/contacts/:sid"
+  to     = "/.netlify/functions/pages/contacts"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/contacts"
+  to     = "/.netlify/functions/pages/contacts"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id/analytics"
+  to     = "/.netlify/functions/pages/analytics"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages/:id"
+  to     = "/.netlify/functions/pages/[id]"
+  status = 200
+
+[[redirects]]
+  from   = "/api/pages"
+  to     = "/.netlify/functions/pages/index"
+  status = 200
+
+[[redirects]]
+  from   = "/api/public/pages/:slug/view"
+  to     = "/.netlify/functions/public/view"
+  status = 200
+
+[[redirects]]
+  from   = "/api/public/pages/:slug/contact"
+  to     = "/.netlify/functions/public/contact"
+  status = 200
+
+[[redirects]]
+  from   = "/api/public/pages/:slug"
+  to     = "/.netlify/functions/public/page"
+  status = 200
+
+[[redirects]]
+  from   = "/api/health"
+  to     = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from   = "/api/themes"
+  to     = "/.netlify/functions/themes"
+  status = 200
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "DENY"
+    X-Content-Type-Options = "nosniff"
