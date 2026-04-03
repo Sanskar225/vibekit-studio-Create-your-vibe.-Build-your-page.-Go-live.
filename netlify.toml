@@ -1,8 +1,7 @@
 [build]
-  base      = "vibekit/frontend"
-  command   = "npm install --include=dev && cd ../backend && npm install && cd ../frontend && npm run build"
-  publish   = "dist"
-  functions = "../backend/netlify/functions"
+  command   = "cd vibekit/backend && npm install && cd ../frontend && npm install --include=dev && npm run build"
+  publish   = "vibekit/frontend/dist"
+  functions = "vibekit/backend/netlify/functions"
 
 [build.environment]
   NPM_CONFIG_PRODUCTION = "false"
@@ -10,7 +9,7 @@
 [functions]
   node_bundler          = "esbuild"
   external_node_modules = ["pg", "jsonwebtoken", "bcryptjs", "cookie", "dotenv", "slugify", "zod", "nanoid", "nodemailer"]
-  included_files        = ["../backend/lib/**"]
+  included_files        = ["vibekit/backend/lib/**"]
 
 [[redirects]]
   from   = "/api/auth/signup"
