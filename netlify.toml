@@ -1,6 +1,6 @@
 [build]
   base      = "vibekit/frontend"
-  command   = "npm run build"
+  command   = "npm install && npm run build"
   publish   = "dist"
   functions = "../backend/netlify/functions"
 
