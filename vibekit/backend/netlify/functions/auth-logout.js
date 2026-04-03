@@ -1,7 +1,7 @@
 // netlify/functions/auth/logout.js  →  POST /api/auth/logout
-const { buildClearCookies, extractToken, verifyToken } = require("../lib/auth");
-const { query } = require("../lib/db/pool");
-const { success, error, withErrorHandler } = require("../lib/middleware");
+const { buildClearCookies, extractToken, verifyToken } = require("../../lib/auth");
+const { query } = require("../../lib/db/pool");
+const { success, error, withErrorHandler } = require("../../lib/middleware");
 
 async function handler(event) {
   if (event.httpMethod !== "POST") return error("Method not allowed", 405);

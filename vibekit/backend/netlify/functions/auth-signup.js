@@ -1,8 +1,8 @@
 // netlify/functions/auth/signup.js  →  POST /api/auth/signup
-const { query }  = require("../lib/db/pool");
-const { hashPassword, signAccessToken, signRefreshToken, buildAuthCookies } = require("../lib/auth");
-const { signupSchema, validate } = require("../lib/validators");
-const { success, error, withErrorHandler, rateLimit, parseBody } = require("../lib/middleware");
+const { query }  = require("../../lib/db/pool");
+const { hashPassword, signAccessToken, signRefreshToken, buildAuthCookies } = require("../../lib/auth");
+const { signupSchema, validate } = require("../../lib/validators");
+const { success, error, withErrorHandler, rateLimit, parseBody } = require("../../lib/middleware");
 
 async function handler(event) {
   if (event.httpMethod !== "POST") return error("Method not allowed", 405, "METHOD_NOT_ALLOWED");

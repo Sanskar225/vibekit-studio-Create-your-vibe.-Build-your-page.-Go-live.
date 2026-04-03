@@ -1,9 +1,9 @@
 // netlify/functions/auth/refresh.js  →  POST /api/auth/refresh
 const cookie = require("cookie");
-const { query } = require("../lib/db/pool");
+const { query } = require("../../lib/db/pool");
 const { verifyToken, signAccessToken, signRefreshToken, buildAuthCookies,
-        comparePassword, hashPassword } = require("../lib/auth");
-const { success, error, withErrorHandler, rateLimit } = require("../lib/middleware");
+        comparePassword, hashPassword } = require("../../lib/auth");
+const { success, error, withErrorHandler, rateLimit } = require("../../lib/middleware");
 
 async function handler(event) {
   if (event.httpMethod !== "POST") return error("Method not allowed", 405);

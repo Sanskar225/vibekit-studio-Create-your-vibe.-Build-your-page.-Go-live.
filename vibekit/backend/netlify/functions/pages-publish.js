@@ -1,6 +1,6 @@
 // netlify/functions/pages/publish.js  →  POST /api/pages/:id/publish|unpublish
-const { query } = require("../lib/db/pool");
-const { success, error, withErrorHandler, requireAuth } = require("../lib/middleware");
+const { query } = require("../../lib/db/pool");
+const { success, error, withErrorHandler, requireAuth } = require("../../lib/middleware");
 
 function getId(event) {
   const parts = event.path.split("/").filter(Boolean);

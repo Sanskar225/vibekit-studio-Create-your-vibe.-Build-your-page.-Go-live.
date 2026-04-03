@@ -1,8 +1,8 @@
 // netlify/functions/pages/index.js  →  GET /api/pages  +  POST /api/pages
-const { query } = require("../lib/db/pool");
-const { generateUniqueSlug } = require("../lib/db/slug");
-const { createPageSchema, validate } = require("../lib/validators");
-const { success, error, withErrorHandler, requireAuth, parseBody } = require("../lib/middleware");
+const { query } = require("../../lib/db/pool");
+const { generateUniqueSlug } = require("../../lib/db/slug");
+const { createPageSchema, validate } = require("../../lib/validators");
+const { success, error, withErrorHandler, requireAuth, parseBody } = require("../../lib/middleware");
 
 const DEFAULT_SECTIONS = [
   { type:"hero",     order:0, content:{ title:"Page Title", subtitle:"Your subtitle goes here.", buttonText:"Get Started", buttonUrl:"#contact" }},

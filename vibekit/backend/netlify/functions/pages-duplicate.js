@@ -1,7 +1,7 @@
 // netlify/functions/pages/duplicate.js  →  POST /api/pages/:id/duplicate
-const { query, withTransaction } = require("../lib/db/pool");
-const { generateUniqueSlug }     = require("../lib/db/slug");
-const { success, error, withErrorHandler, requireAuth } = require("../lib/middleware");
+const { query, withTransaction } = require("../../lib/db/pool");
+const { generateUniqueSlug }     = require("../../lib/db/slug");
+const { success, error, withErrorHandler, requireAuth } = require("../../lib/middleware");
 
 function getId(event) {
   const parts = event.path.split("/").filter(Boolean);
