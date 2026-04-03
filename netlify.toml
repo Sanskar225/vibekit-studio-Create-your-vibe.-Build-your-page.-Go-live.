@@ -10,70 +10,71 @@
 [functions]
   node_bundler          = "esbuild"
   external_node_modules = ["pg", "jsonwebtoken", "bcryptjs", "cookie", "dotenv", "slugify", "zod", "nanoid", "nodemailer"]
+  included_files        = ["../backend/lib/**"]
 
 [[redirects]]
   from   = "/api/auth/signup"
-  to     = "/.netlify/functions/auth/signup"
+  to     = "/.netlify/functions/auth-signup"
   status = 200
 
 [[redirects]]
   from   = "/api/auth/login"
-  to     = "/.netlify/functions/auth/login"
+  to     = "/.netlify/functions/auth-login"
   status = 200
 
 [[redirects]]
   from   = "/api/auth/logout"
-  to     = "/.netlify/functions/auth/logout"
+  to     = "/.netlify/functions/auth-logout"
   status = 200
 
 [[redirects]]
   from   = "/api/auth/me"
-  to     = "/.netlify/functions/auth/me"
+  to     = "/.netlify/functions/auth-me"
   status = 200
 
 [[redirects]]
   from   = "/api/auth/refresh"
-  to     = "/.netlify/functions/auth/refresh"
+  to     = "/.netlify/functions/auth-refresh"
   status = 200
 
 [[redirects]]
   from   = "/api/pages/:id/publish"
-  to     = "/.netlify/functions/pages/publish"
+  to     = "/.netlify/functions/pages-publish"
   status = 200
 
 [[redirects]]
   from   = "/api/pages/:id/unpublish"
-  to     = "/.netlify/functions/pages/publish"
+  to     = "/.netlify/functions/pages-publish"
   status = 200
 
 [[redirects]]
   from   = "/api/pages/:id/duplicate"
-  to     = "/.netlify/functions/pages/duplicate"
+  to     = "/.netlify/functions/pages-duplicate"
   status = 200
 
 [[redirects]]
   from   = "/api/pages/:id"
-  to     = "/.netlify/functions/pages/[id]"
+  to     = "/.netlify/functions/pages-id"
   status = 200
 
 [[redirects]]
   from   = "/api/pages"
-  to     = "/.netlify/functions/pages/index"
+  to     = "/.netlify/functions/pages-index"
   status = 200
 
 [[redirects]]
   from   = "/api/public/pages/:slug/view"
-  to     = "/.netlify/functions/public/view"
+  to     = "/.netlify/functions/public-view"
   status = 200
 
 [[redirects]]
   from   = "/api/public/pages/:slug/contact"
-  to     = "/.netlify/functions/public/contact"
+  to     = "/.netlify/functions/public-contact"
   status = 200
 
 [[redirects]]
   from   = "/api/public/pages/:slug"
-  to     = "/.netlify/functions/public/page"
+  to     = "/.netlify/functions/public-page"
   status = 200
 
 [[redirects]]
