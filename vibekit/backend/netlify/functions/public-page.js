@@ -1,6 +1,6 @@
 // netlify/functions/public/page.js  →  GET /api/public/pages/:slug
-const { query } = require("../../../lib/db/pool");
-const { success, error, withErrorHandler, corsHeaders } = require("../../../lib/middleware");
+const { query } = require("../../lib/db/pool");
+const { success, error, withErrorHandler, corsHeaders } = require("../../lib/middleware");
 
 function getSlug(event) {
   return event.path.split("/").filter(Boolean).pop();

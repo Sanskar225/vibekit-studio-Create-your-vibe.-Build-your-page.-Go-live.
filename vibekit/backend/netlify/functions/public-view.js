@@ -1,6 +1,6 @@
 // netlify/functions/public/view.js  →  POST /api/public/pages/:slug/view
-const { query, withTransaction } = require("../../../lib/db/pool");
-const { success, withErrorHandler, rateLimit } = require("../../../lib/middleware");
+const { query, withTransaction } = require("../../lib/db/pool");
+const { success, withErrorHandler, rateLimit } = require("../../lib/middleware");
 
 function getSlug(event) {
   const parts = event.path.split("/").filter(Boolean);

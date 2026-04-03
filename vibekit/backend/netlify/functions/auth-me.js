@@ -1,6 +1,6 @@
 // netlify/functions/auth/me.js  →  GET /api/auth/me
-const { query } = require("../../../lib/db/pool");
-const { success, error, withErrorHandler, requireAuth } = require("../../../lib/middleware");
+const { query } = require("../lib/db/pool");
+const { success, error, withErrorHandler, requireAuth } = require("../lib/middleware");
 
 async function handler(event) {
   if (event.httpMethod !== "GET") return error("Method not allowed", 405);

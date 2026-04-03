@@ -1,8 +1,8 @@
 // netlify/functions/auth/login.js  →  POST /api/auth/login
-const { query } = require("../../../lib/db/pool");
-const { comparePassword, signAccessToken, signRefreshToken, buildAuthCookies } = require("../../../lib/auth");
-const { loginSchema, validate } = require("../../../lib/validators");
-const { success, error, withErrorHandler, rateLimit, parseBody } = require("../../../lib/middleware");
+const { query } = require("../lib/db/pool");
+const { comparePassword, signAccessToken, signRefreshToken, buildAuthCookies } = require("../lib/auth");
+const { loginSchema, validate } = require("../lib/validators");
+const { success, error, withErrorHandler, rateLimit, parseBody } = require("../lib/middleware");
 
 const INVALID = error("Invalid email or password", 401, "INVALID_CREDENTIALS");
 

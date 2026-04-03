@@ -1,8 +1,8 @@
 // netlify/functions/public/contact.js  →  POST /api/public/pages/:slug/contact
-const { query }  = require("../../../lib/db/pool");
-const { sendContactNotification } = require("../../../lib/email");
-const { contactSchema, validate } = require("../../../lib/validators");
-const { success, error, withErrorHandler, rateLimit, parseBody } = require("../../../lib/middleware");
+const { query }  = require("../../lib/db/pool");
+const { sendContactNotification } = require("../../lib/email");
+const { contactSchema, validate } = require("../../lib/validators");
+const { success, error, withErrorHandler, rateLimit, parseBody } = require("../../lib/middleware");
 
 function getSlug(event) {
   const parts = event.path.split("/").filter(Boolean);

@@ -1,8 +1,8 @@
 // netlify/functions/pages/[id].js  →  GET|PUT|DELETE /api/pages/:id
-const { query } = require("../../../lib/db/pool");
-const { generateUniqueSlug } = require("../../../lib/db/slug");
-const { updatePageSchema, validate } = require("../../../lib/validators");
-const { success, error, withErrorHandler, requireAuth, parseBody } = require("../../../lib/middleware");
+const { query } = require("../lib/db/pool");
+const { generateUniqueSlug } = require("../lib/db/slug");
+const { updatePageSchema, validate } = require("../lib/validators");
+const { success, error, withErrorHandler, requireAuth, parseBody } = require("../lib/middleware");
 
 function getId(event) { return event.path.split("/").filter(Boolean).pop(); }
 
