@@ -1,4 +1,4 @@
-<img width="1901" height="992" alt="image" src="https://github.com/user-attachments/assets/15c897f5-00fc-411c-9598-8684fb916f1a" /># VibeKit Studio
+# VibeKit Studio
 > Generate a theme, build a mini-site, publish it.
 > <img width="1901" height="992" alt="Screenshot 2026-04-04 043032" src="https://github.com/user-attachments/assets/7e50a63c-7a10-4120-bc67-0405ff820230" />
 
