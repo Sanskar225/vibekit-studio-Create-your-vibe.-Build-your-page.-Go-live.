@@ -1,8 +1,11 @@
 [build]
   base      = "vibekit/frontend"
-  command   = "npm install && npm run build"
+  command   = "npm install --include=dev && npm run build"
   publish   = "dist"
   functions = "../backend/netlify/functions"
+
+[build.environment]
+  NPM_CONFIG_PRODUCTION = "false"
 
 [functions]
   node_bundler   = "esbuild"
