@@ -1,4 +1,4 @@
-require("dotenv").config();
+
 // lib/db/pool.js
 // Persistent pg connection pool — survives warm Lambda invocations
 const { Pool } = require("pg");
