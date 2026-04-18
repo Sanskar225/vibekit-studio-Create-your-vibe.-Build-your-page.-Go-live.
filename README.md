@@ -1,526 +1,252 @@
-# 🎨 VibeKit Studio  
-**Generate a theme, build a mini-site, publish it.**
+# ⚡ VibeKit Studio
 
- <img width="1901" height="992" alt="Screenshot 2026-04-04 043032" src="https://github.com/user-attachments/assets/7e50a63c-7a10-4120-bc67-0405ff820230" />
+<div align="center">
 
+**Generate a theme. Build a mini-site. Publish it.**
+
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-vibe--studio--go.netlify.app-7C3AED?style=for-the-badge)](https://vibe-studio-go.netlify.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.)
+[![Netlify](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://vibe-studio-go.netlify.app)
+
+<br/>
+
+![VibeKit Studio Banner](https://github.com/user-attachments/assets/7e50a63c-7a10-4120-bc67-0405ff820230)
+
+</div>
 
 ---
 
-## 🌐 Live URL  
-https://vibe-studio-go.netlify.app  
+## 🎯 What is VibeKit Studio?
 
-## 📁 GitHub Repository  
-https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.
+VibeKit Studio is a **full-stack themed page builder** where users can:
 
----
+1. 🎨 **Pick a vibe** — choose from 6 stunning design presets
+2. 🛠️ **Build a page** — edit sections with a live preview editor
+3. 🚀 **Publish instantly** — get a public URL in one click
 
-## 📋 Table of Contents
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Docker Setup](#docker-setup)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
-- [API Documentation](#api-documentation)
-- [Theme System](#theme-system)
-- [Authentication](#authentication)
-- [Database Schema](#database-schema)
-- [Test Credentials](#test-credentials)
-- [Deployment](#deployment)
-- [Tradeoffs & Improvements](#tradeoffs--improvements)
-- [Responsiveness](#responsiveness)
+> Built for the **Purple Merit Technologies Full Stack Vibe Coder Internship Assessment**
 
 ---
 
 ## ✨ Features
 
-### 🚀 Core Functionality
-- 🎨 **6 Theme Presets** – Minimal, Neo-Brutal, Dark/Neon, Pastel, Luxury, Retro  
-- 📄 **Page Builder** – Hero, Features, Gallery, Contact sections  
-- 🔐 **Authentication** – JWT with httpOnly cookies  
-- 📊 **Dashboard** – Manage draft/published pages  
-- 👁️ **Live Preview** – Desktop/Tablet/Mobile toggle  
-- 💾 **Auto-Save** – Real-time save indicator  
-- 🔄 **Publish/Unpublish** – One-click publishing  
-- 🔗 **Auto Slug Generation** – Unique URLs  
-- 📈 **View Tracking** – Stored in DB  
-- 📧 **Contact Form** – DB persistence  
-- 📋 **Duplicate Pages** – Clone pages  
-- 📱 **Responsive Design** – Mobile, tablet, desktop  
+| Feature | Description |
+|---------|-------------|
+| 🎨 **6 Theme Presets** | Minimal, Neo-Brutal, Dark/Neon, Pastel, Luxury, Retro — each with full CSS design tokens |
+| 🛠️ **Live Page Builder** | Edit Hero, Features, Gallery & Contact sections with real-time preview |
+| 📱 **Responsive Preview** | Toggle Desktop / Tablet / Mobile viewport in the editor |
+| 🌐 **Instant Publish** | One-click publish with auto-generated unique slug |
+| 💾 **Auto-Save** | Changes save automatically while you type |
+| 📊 **Analytics** | View counts, unique visitors, referrer breakdown — all in PostgreSQL |
+| 🔐 **JWT Auth** | Secure login with httpOnly cookies, bcrypt passwords, refresh token rotation |
+| 🐳 **Docker Support** | Full local development environment with Docker Compose |
 
-### ⚡ Advanced Features
-- CSS variables (design tokens)  
-- Server-side validation (Zod)  
-- User data isolation  
-- Skeleton loaders  
-- Smooth UI interactions  
+---
+
+## 🚀 Quick Start
+
+### Option 1 — Docker (Recommended, Zero Setup)
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.
+cd vibekit-studio
+
+# 2. Start everything
+cd vibekit
+docker compose up --build
+
+# 3. Setup database (first time only)
+docker compose exec backend node migrations/run.js
+docker compose exec backend node scripts/seed.js
+
+# 4. Open browser
+# http://localhost:3000
+```
+
+### Option 2 — Manual Setup
+
+```bash
+# Backend
+cd vibekit/backend
+cp .env.example .env   # fill in your values
+npm install
+node migrations/run.js
+node server.js         # runs on :8888
+
+# Frontend (new terminal)
+cd vibekit/frontend
+cp .env.example .env
+npm install
+npm run dev            # runs on :3000
+```
+
+---
+
+## 🔑 Test Credentials
+
+```
+Email:    demo@vibekit.studio
+Password: Demo1234!
+```
+
+Or sign up at `/signup` with any email.
+
+---
+
+## 🏗️ Project Structure
+
+```
+vibekit-studio/
+├── vibekit/
+│   ├── backend/                  # Node.js API (Netlify Functions + PostgreSQL)
+│   │   ├── lib/
+│   │   │   ├── auth/             # JWT, bcrypt helpers
+│   │   │   ├── db/               # pg pool, slug generator
+│   │   │   ├── email/            # Nodemailer
+│   │   │   ├── middleware/       # CORS, auth, rate limiting
+│   │   │   └── validators/       # Zod schemas
+│   │   ├── migrations/           # SQL schema migrations
+│   │   ├── netlify/functions/    # Serverless API handlers
+│   │   ├── scripts/              # Seed data
+│   │   ├── Dockerfile            # Docker config
+│   │   └── server.js             # Local dev server
+│   │
+│   ├── frontend/                 # React + Vite SPA
+│   │   ├── src/
+│   │   │   ├── components/       # PageRenderer, Editor
+│   │   │   ├── pages/            # Landing, Login, Dashboard, Editor, Published
+│   │   │   ├── store/            # Zustand auth store
+│   │   │   ├── lib/              # Axios API client
+│   │   │   └── styles/           # Global CSS design tokens
+│   │   └── Dockerfile            # Docker config
+│   │
+│   └── docker-compose.yml        # Local dev orchestration
+│
+└── netlify.toml                  # Production routing config
+```
+
+---
+
+## 🎨 Theme System
+
+6 vibe presets, each with complete CSS design tokens:
+
+| Theme | Style | Accent |
+|-------|-------|--------|
+| **Minimal** | Clean editorial, serif headings | `#1A1A1A` |
+| **Neo-Brutal** | Bold borders, high contrast | `#FF3B00` |
+| **Dark/Neon** | Dark bg, glowing accents | `#00FF88` |
+| **Pastel/Soft** | Rounded, playful, warm | `#E8756A` |
+| **Luxury/Serif** | Dark gold, elegant spacing | `#C9A96E` |
+| **Retro/Pixel** | Pixel-inspired, nostalgic | `#F7C948` |
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- React 18 + Vite  
-- Tailwind CSS  
-- Zustand  
-- React Query  
-- React Router v6  
+![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-orange?style=flat-square)
+![React Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=flat-square)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=flat-square&logo=framer)
 
 ### Backend
-- Node.js + Express  
-- PostgreSQL (Neon)  
-- JWT Authentication  
-- bcryptjs  
-- Zod  
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=flat-square&logo=JSON%20web%20tokens)
+![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat-square)
+![Netlify Functions](https://img.shields.io/badge/Netlify_Functions-00C7B7?style=flat-square&logo=netlify)
 
-### DevOps & Deployment
-- Docker + Docker Compose  
-- PM2 (process management)  
-- Nginx (reverse proxy + static serving)  
-- AWS (EC2, RDS)  
+### DevOps
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
 ---
 
-## 🏗️ Architecture
-┌─────────────────────────────────────────────────────────────┐
-│ Docker Container (Nginx) │
-│ ┌───────────────────────────────────────────────────────┐ │
-│ │ Frontend (React + Vite) - Static Build │ │
-│ │ Port: 3000 → Exposed: 80 │ │
-│ └───────────────────────────────────────────────────────┘ │
-└─────────────────────────┬───────────────────────────────────┘
-│
-│ Proxy Pass /api
-▼
-┌─────────────────────────────────────────────────────────────┐
-│ Docker Container (Node.js + PM2) │
-│ ┌───────────────────────────────────────────────────────┐ │
-│ │ Backend API (Express) │ │
-│ │ PM2 Cluster Mode (auto-scaling) │ │
-│ │ Port: 8888 (Internal) │ │
-│ └───────────────────────────────────────────────────────┘ │
-└─────────────────────────┬───────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────┐
-│ Docker Container (PostgreSQL) │
-│ ┌───────────────────────────────────────────────────────┐ │
-│ │ PostgreSQL 15 Alpine │ │
-│ │ Port: 5432 (Internal) │ │
-│ │ Volume: postgres_data (persistent) │ │
-│ └───────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
+## 🐳 Docker Commands
 
-text
-
----
-
-## 📋 Prerequisites
-
-- Node.js >= 18  
-- npm >= 9  
-- Docker & Docker Compose  
-
----
-
-## 🚀 Installation (Local)
-
-### 1. Clone Repo
 ```bash
-git clone https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.
-cd vibekit-studio
-2. Backend Setup
-bash
-cd vibekit/backend
-cp .env.example .env
-npm install
-npm run migrate
-node server.js
-3. Frontend Setup
-bash
-cd vibekit/frontend
-cp .env.example .env
-npm install
-npm run dev
-🐳 Docker Setup
-Docker Compose Configuration
-Create docker-compose.yml in project root:
+docker compose up --build          # Build and start all containers
+docker compose up                  # Start (after first build)
+docker compose down                # Stop all containers
+docker compose restart backend     # Restart only backend
+docker compose logs -f backend     # Watch backend logs
+docker compose exec backend node migrations/run.js   # Run DB migrations
+docker compose exec backend node scripts/seed.js     # Seed test data
+```
 
-yaml
-version: '3.8'
+---
 
-services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: vibekit-db
-    environment:
-      POSTGRES_USER: vibekit
-      POSTGRES_PASSWORD: vibekit_password
-      POSTGRES_DB: vibekit_studio
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - vibekit-network
-    ports:
-      - "5432:5432"
+## 🔐 Security
 
-  backend:
-    build: ./vibekit/backend
-    container_name: vibekit-backend
-    environment:
-      DATABASE_URL: postgresql://vibekit:vibekit_password@postgres:5432/vibekit_studio
-      JWT_SECRET: your-production-secret-key
-      NODE_ENV: production
-      FRONTEND_URL: http://localhost:3000
-    depends_on:
-      - postgres
-    networks:
-      - vibekit-network
-    ports:
-      - "8888:8888"
-    command: sh -c "npm run migrate && pm2-runtime server.js"
+- ✅ Passwords hashed with **bcrypt** (12 rounds)
+- ✅ JWTs stored in **httpOnly, Secure, SameSite=Strict cookies**
+- ✅ All inputs validated with **Zod** server-side
+- ✅ **Parameterised queries** — no SQL injection risk
+- ✅ Ownership checks on every page endpoint
+- ✅ **Rate limiting** on auth + public contact endpoints
+- ✅ No secrets in client-side code
+- ✅ Security headers via Netlify `[[headers]]`
 
-  frontend:
-    build: ./vibekit/frontend
-    container_name: vibekit-frontend
-    depends_on:
-      - backend
-    networks:
-      - vibekit-network
-    ports:
-      - "3000:80"
+---
 
-networks:
-  vibekit-network:
-    driver: bridge
+## 📡 API Endpoints
 
-volumes:
-  postgres_data:
-Backend Dockerfile (vibekit/backend/Dockerfile)
-dockerfile
-FROM node:18-alpine
+```
+POST   /api/auth/signup
+POST   /api/auth/login
+POST   /api/auth/logout
+GET    /api/auth/me
 
-RUN npm install -g pm2
+GET    /api/pages
+POST   /api/pages
+GET    /api/pages/:id
+PUT    /api/pages/:id
+DELETE /api/pages/:id
+POST   /api/pages/:id/publish
+POST   /api/pages/:id/unpublish
+POST   /api/pages/:id/duplicate
 
-WORKDIR /app
+GET    /api/public/pages/:slug
+POST   /api/public/pages/:slug/view
+POST   /api/public/pages/:slug/contact
+```
 
-COPY package*.json ./
-RUN npm ci --only=production
+---
 
-COPY . .
+## 📱 Responsiveness
 
-EXPOSE 8888
+Tested and verified at:
+- Mobile: 320px–480px ✅
+- Tablet: 768px–1024px ✅
+- Desktop: 1280px+ ✅
 
-CMD ["sh", "-c", "npm run migrate && pm2-runtime server.js"]
-Frontend Dockerfile (vibekit/frontend/Dockerfile)
-dockerfile
-FROM node:18-alpine AS builder
+---
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
+## ⚙️ Environment Variables
 
-FROM nginx:alpine
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-Nginx Configuration (vibekit/frontend/nginx.conf)
-nginx
-server {
-    listen 80;
-    server_name localhost;
-    root /usr/share/nginx/html;
-    index index.html;
-
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_types text/plain text/css text/xml text/javascript application/javascript application/json;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    location /api {
-        proxy_pass http://vibekit-backend:8888;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-}
-PM2 Configuration (vibekit/backend/ecosystem.config.js)
-javascript
-module.exports = {
-  apps: [{
-    name: 'vibekit-backend',
-    script: 'server.js',
-    instances: 'max',
-    exec_mode: 'cluster',
-    watch: false,
-    max_memory_restart: '1G',
-    env: {
-      NODE_ENV: 'production',
-    },
-    error_file: './logs/err.log',
-    out_file: './logs/out.log',
-    log_file: './logs/combined.log',
-    time: true
-  }]
-};
-Run Full Stack with Docker
-bash
-docker-compose up --build
-Access
-Frontend → http://localhost:3000
-
-Backend → http://localhost:8888
-
-Database → localhost:5432
-
-⚙️ Configuration
-Backend .env
-env
-DATABASE_URL=postgresql://postgres:password@db:5432/vibekit
-JWT_SECRET=your-secret-key-minimum-32-characters
+### Backend (`vibekit/backend/.env`)
+```env
+DATABASE_URL=postgresql://user:password@host:5432/vibekit
+JWT_SECRET=your-64-char-secret
 NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
-Frontend .env
-env
+```
+
+### Frontend (`vibekit/frontend/.env`)
+```env
 VITE_API_URL=http://localhost:8888
-Production Environment (Netlify)
-env
-DATABASE_URL=your_neon_db_url
-JWT_SECRET=your-production-secret-key
-NODE_ENV=production
-FRONTEND_URL=https://vibe-studio-go.netlify.app
-VITE_API_URL=https://vibe-studio-go.netlify.app
-NPM_CONFIG_PRODUCTION=false
-▶️ Running the Application
-Local Development
-bash
-# Backend
-cd vibekit/backend
-node server.js
+```
 
-# Frontend
-cd vibekit/frontend
-npm run dev
-Docker
-bash
-docker-compose up
-Production with PM2 (Without Docker)
-bash
-cd vibekit/backend
-pm2 start ecosystem.config.js
-pm2 save
-pm2 startup
-📁 Project Structure
-text
-vibekit-studio/
-├── vibekit/
-│   ├── backend/
-│   │   ├── migrations/
-│   │   ├── routes/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── utils/
-│   │   ├── server.js
-│   │   ├── ecosystem.config.js
-│   │   ├── Dockerfile
-│   │   ├── .env
-│   │   └── package.json
-│   │
-│   ├── frontend/
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   ├── pages/
-│   │   │   ├── hooks/
-│   │   │   ├── store/
-│   │   │   ├── api/
-│   │   │   └── styles/
-│   │   ├── public/
-│   │   ├── nginx.conf
-│   │   ├── Dockerfile
-│   │   ├── .env
-│   │   └── package.json
-│   │
-│   └── docker-compose.yml
-│
-└── README.md
-📡 API Documentation
-Base URL: http://localhost:8888
+---
 
-Authentication Endpoints
-Method	Endpoint	Description
-POST	/api/auth/signup	Create new user
-POST	/api/auth/login	Login user
-POST	/api/auth/logout	Logout user
-GET	/api/auth/me	Get current user
-POST	/api/auth/refresh	Refresh token
-Pages Endpoints (Authenticated)
-Method	Endpoint	Description
-GET	/api/pages	Get all user pages
-POST	/api/pages	Create new page
-GET	/api/pages/:id	Get page by ID
-PUT	/api/pages/:id	Update page
-POST	/api/pages/:id/publish	Publish page
-POST	/api/pages/:id/unpublish	Unpublish page
-POST	/api/pages/:id/duplicate	Duplicate page
-Public Endpoints
-Method	Endpoint	Description
-GET	/api/public/pages/:slug	Get published page
-POST	/api/public/pages/:slug/view	Increment view count
-POST	/api/public/pages/:slug/contact	Submit contact form
-🎨 Theme System
-Theme	Style	Color Palette
-Minimal	Clean white, sans-serif	Neutrals + blue
-Neo-Brutal	Bold borders, chunky buttons	High contrast + yellow
-Dark/Neon	Dark bg, glow effects	Black + cyan/pink
-Pastel	Soft colors, rounded	Lavender, mint, peach
-Luxury	Dark gold, serif fonts	Navy + gold
-Retro	Vintage, pixel-inspired	Orange, teal, cream
-CSS variables for design tokens
+<div align="center">
 
-Consistent styling across preview & published pages
+**Built with ❤️ by Sanskar Sinha**
 
-🔐 Authentication
-JWT (15min access + 7 day refresh token)
+[![Portfolio](https://img.shields.io/badge/GitHub-Sanskar225-black?style=flat-square&logo=github)](https://github.com/Sanskar225)
 
-httpOnly cookies (XSS protection)
-
-bcrypt hashing (12 rounds)
-
-Protected routes with server-side validation
-
-User data isolation
-
-🗄️ Database Schema
-Tables
-users
-
-id (UUID, PK)
-
-email (Unique)
-
-password_hash
-
-created_at, updated_at
-
-pages
-
-id (UUID, PK)
-
-user_id (FK)
-
-title
-
-slug (Unique)
-
-theme (enum)
-
-sections (JSON)
-
-is_published
-
-view_count
-
-created_at, updated_at, published_at
-
-contact_submissions
-
-id (UUID, PK)
-
-page_id (FK)
-
-name, email, message
-
-submitted_at
-
-Run Migrations
-bash
-cd vibekit/backend
-npm run migrate
-🧪 Test Credentials
-Field	Value
-Email	demo@vibekit.studio
-Password	Demo1234!
-Or create a new account via /signup
-
-🚢 Deployment
-Netlify Deployment
-Connect GitHub repository to Netlify
-
-Build settings:
-
-Build command: cd vibekit/frontend && npm run build
-
-Publish directory: vibekit/frontend/dist
-
-Add environment variables
-
-Deploy!
-
-Docker Production (AWS EC2 / DigitalOcean)
-bash
-# Pull images
-docker pull yourusername/vibekit-backend:latest
-docker pull yourusername/vibekit-frontend:latest
-
-# Run containers
-docker run -d -p 8888:8888 yourusername/vibekit-backend
-docker run -d -p 80:80 yourusername/vibekit-frontend
-Push to Docker Hub
-bash
-docker tag vibekit-backend yourusername/vibekit-backend:latest
-docker tag vibekit-frontend yourusername/vibekit-frontend:latest
-docker push yourusername/vibekit-backend:latest
-docker push yourusername/vibekit-frontend:latest
-⚖️ Tradeoffs & Improvements
-Current Tradeoffs
-Image uploads via URL (no file upload)
-
-No real-time collaboration
-
-Email notifications only in DB
-
-Future Improvements
-☁️ Cloudinary/Netlify Blobs for image hosting
-
-🔌 WebSockets for live editing
-
-🎨 12+ themes + custom theme builder
-
-📧 SendGrid/Resend for email delivery
-
-⚡ CDN caching + ISR for faster loads
-
-📱 Responsiveness
-Device	Breakpoint	Status
-Mobile	320px–480px	✅
-Tablet	768px–1024px	✅
-Desktop	1280px+	✅
-👤 Author
-Sanskar Sinha
-
-❤️ Built With
-React • Node.js • PostgreSQL • Docker • Nginx • PM2
+</div>
