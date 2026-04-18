@@ -1,61 +1,89 @@
-# VibeKit Studio
+# ⚡ VibeKit Studio
 
-> "Generate a theme, build a mini-site, publish it."
-> Full Stack Vibe Coder Intern Assessment — Purple Merit Technologies
+<div align="center">
+
+**Generate a theme. Build a mini-site. Publish it.**
+
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-vibe--studio--go.netlify.app-7C3AED?style=for-the-badge)](https://vibe-studio-go.netlify.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.)
+[![Netlify](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://vibe-studio-go.netlify.app)
+
+<br/>
+
+![VibeKit Studio Banner](https://github.com/user-attachments/assets/7e50a63c-7a10-4120-bc67-0405ff820230)
+
+</div>
 
 ---
 
-## Project Structure
+## 🎯 What is VibeKit Studio?
 
-```
-vibekit/
-├── backend/     ← Node.js API (Netlify Functions + PostgreSQL)
-└── frontend/    ← React + Vite SPA
-```
+VibeKit Studio is a **full-stack themed page builder** where users can:
+
+1. 🎨 **Pick a vibe** — choose from 6 stunning design presets
+2. 🛠️ **Build a page** — edit sections with a live preview editor
+3. 🚀 **Publish instantly** — get a public URL in one click
+
+> Built for the **Purple Merit Technologies Full Stack Vibe Coder Internship Assessment**
 
 ---
 
-## Quick Start (5 minutes)
+## ✨ Features
 
-### 1. Get a free PostgreSQL database
-Sign up at **[neon.tech](https://neon.tech)** → Create project → Copy connection string.
+| Feature | Description |
+|---------|-------------|
+| 🎨 **6 Theme Presets** | Minimal, Neo-Brutal, Dark/Neon, Pastel, Luxury, Retro — each with full CSS design tokens |
+| 🛠️ **Live Page Builder** | Edit Hero, Features, Gallery & Contact sections with real-time preview |
+| 📱 **Responsive Preview** | Toggle Desktop / Tablet / Mobile viewport in the editor |
+| 🌐 **Instant Publish** | One-click publish with auto-generated unique slug |
+| 💾 **Auto-Save** | Changes save automatically while you type |
+| 📊 **Analytics** | View counts, unique visitors, referrer breakdown — all in PostgreSQL |
+| 🔐 **JWT Auth** | Secure login with httpOnly cookies, bcrypt passwords, refresh token rotation |
+| 🐳 **Docker Support** | Full local development environment with Docker Compose |
 
-### 2. Install & configure backend
+---
+
+## 🚀 Quick Start
+
+### Option 1 — Docker (Recommended, Zero Setup)
 
 ```bash
-cd backend
+# 1. Clone the repo
+git clone https://github.com/Sanskar225/vibekit-studio-Create-your-vibe.-Build-your-page.-Go-live.
+cd vibekit-studio
+
+# 2. Start everything
+cd vibekit
+docker compose up --build
+
+# 3. Setup database (first time only)
+docker compose exec backend node migrations/run.js
+docker compose exec backend node scripts/seed.js
+
+# 4. Open browser
+# http://localhost:3000
+```
+
+### Option 2 — Manual Setup
+
+```bash
+# Backend
+cd vibekit/backend
+cp .env.example .env   # fill in your values
 npm install
+node migrations/run.js
+node server.js         # runs on :8888
+
+# Frontend (new terminal)
+cd vibekit/frontend
 cp .env.example .env
-# Fill in DATABASE_URL and JWT_SECRET in .env
-node migrations/run.js   # Create tables
-node scripts/seed.js     # Seed test data (optional)
-```
-
-**Generate JWT_SECRET:**
-```bash
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-```
-
-### 3. Install & run frontend
-
-```bash
-cd frontend
 npm install
-npm run dev       # http://localhost:3000
+npm run dev            # runs on :3000
 ```
-
-### 4. Run the backend dev server (separate terminal)
-
-```bash
-cd backend
-npm run dev       # http://localhost:8888  (Netlify CLI)
-```
-
-Visit **http://localhost:8888** — the backend serves as the API + proxies frontend.
 
 ---
 
-## Test Credentials
+## 🔑 Test Credentials
 
 ```
 Email:    demo@vibekit.studio
@@ -66,119 +94,159 @@ Or sign up at `/signup` with any email.
 
 ---
 
-## Deploying to Netlify
+## 🏗️ Project Structure
 
-1. Push this repo to GitHub
-2. Connect to Netlify → Base directory: `backend`
-3. Build command: `cd ../frontend && npm install && npm run build && cp -r dist ../backend/public`
-4. Functions directory: `netlify/functions`
-5. Publish directory: `public`
-6. Set environment variables in **Netlify → Site settings → Environment variables**:
-   - `DATABASE_URL`
-   - `JWT_SECRET`
-   - `NODE_ENV=production`
-   - `FRONTEND_URL=https://your-site.netlify.app`
-
----
-
-## Environment Variables
-
-### Backend (`backend/.env`)
-| Variable       | Required | Description |
-|----------------|----------|-------------|
-| `DATABASE_URL` | ✅ | PostgreSQL connection string |
-| `JWT_SECRET`   | ✅ | Min 32 chars, used to sign JWTs |
-| `NODE_ENV`     | ✅ | `development` or `production` |
-| `FRONTEND_URL` | ✅ | CORS allowed origin |
-| `SMTP_HOST`    | ⬜ | For email notifications (optional) |
-| `SMTP_PORT`    | ⬜ | Usually 587 |
-| `SMTP_USER`    | ⬜ | SMTP username |
-| `SMTP_PASS`    | ⬜ | SMTP password |
-
----
-
-## API Endpoints
-
-### Auth
-| Method | Endpoint | Auth |
-|--------|----------|------|
-| POST | `/api/auth/signup`  | — |
-| POST | `/api/auth/login`   | — |
-| POST | `/api/auth/logout`  | Cookie |
-| GET  | `/api/auth/me`      | Cookie |
-| POST | `/api/auth/refresh` | Cookie |
-
-### Pages (authenticated)
-| Method | Endpoint |
-|--------|----------|
-| GET    | `/api/pages` |
-| POST   | `/api/pages` |
-| GET    | `/api/pages/:id` |
-| PUT    | `/api/pages/:id` |
-| DELETE | `/api/pages/:id` |
-| POST   | `/api/pages/:id/publish` |
-| POST   | `/api/pages/:id/unpublish` |
-| POST   | `/api/pages/:id/duplicate` |
-| GET    | `/api/pages/:id/contacts` |
-| GET    | `/api/pages/:id/analytics` |
-| GET    | `/api/pages/slug-check` |
-
-### Public
-| Method | Endpoint |
-|--------|----------|
-| GET  | `/api/public/pages/:slug` |
-| POST | `/api/public/pages/:slug/view` |
-| POST | `/api/public/pages/:slug/contact` |
-
-### Utility
-| Method | Endpoint |
-|--------|----------|
-| GET | `/api/health` |
-| GET | `/api/themes` |
+```
+vibekit-studio/
+├── vibekit/
+│   ├── backend/                  # Node.js API (Netlify Functions + PostgreSQL)
+│   │   ├── lib/
+│   │   │   ├── auth/             # JWT, bcrypt helpers
+│   │   │   ├── db/               # pg pool, slug generator
+│   │   │   ├── email/            # Nodemailer
+│   │   │   ├── middleware/       # CORS, auth, rate limiting
+│   │   │   └── validators/       # Zod schemas
+│   │   ├── migrations/           # SQL schema migrations
+│   │   ├── netlify/functions/    # Serverless API handlers
+│   │   ├── scripts/              # Seed data
+│   │   ├── Dockerfile            # Docker config
+│   │   └── server.js             # Local dev server
+│   │
+│   ├── frontend/                 # React + Vite SPA
+│   │   ├── src/
+│   │   │   ├── components/       # PageRenderer, Editor
+│   │   │   ├── pages/            # Landing, Login, Dashboard, Editor, Published
+│   │   │   ├── store/            # Zustand auth store
+│   │   │   ├── lib/              # Axios API client
+│   │   │   └── styles/           # Global CSS design tokens
+│   │   └── Dockerfile            # Docker config
+│   │
+│   └── docker-compose.yml        # Local dev orchestration
+│
+└── netlify.toml                  # Production routing config
+```
 
 ---
 
-## Auth Strategy
+## 🎨 Theme System
 
-JWTs are stored in **httpOnly, Secure, SameSite=Strict cookies** — not localStorage.
-This prevents XSS from stealing tokens. Access token: 7 days. Refresh token: 30 days, stored hashed in DB (revocable). Refresh tokens rotate on every `/api/auth/refresh` call.
+6 vibe presets, each with complete CSS design tokens:
 
----
-
-## Tech Stack
-
-**Frontend:** React 18, Vite, React Router v6, Zustand, TanStack Query, React Hook Form, Framer Motion, Vanta.js, Tailwind CSS
-
-**Backend:** Netlify Functions (Node.js), PostgreSQL, pg pool, JWT, bcrypt, Zod, Nodemailer
-
----
-
-## Tradeoffs + What I'd Improve Next
-
-1. **In-memory rate limiting** — Works per Lambda instance. Would use Upstash Redis for distributed rate limiting across concurrent invocations in production.
-
-2. **JSONB sections vs. normalised tables** — JSONB is fast and flexible for MVP. At scale I'd normalise `features` and `gallery` into separate tables to enable richer querying and analytics.
-
-3. **No refresh token rotation on every request** — Tokens rotate on explicit `/refresh` calls. Would implement sliding window rotation (rotate on every API call) for higher security with acceptable write overhead.
-
-4. **Email is best-effort** — Contact form persists to DB even if email delivery fails. Would add a `pg-boss` job queue to retry failed emails with exponential backoff.
-
-5. **Image URLs only** — Gallery accepts image URLs, not uploads. Would integrate Cloudinary or Uploadthing for direct image uploads with CDN delivery and automatic optimisation.
+| Theme | Style | Accent |
+|-------|-------|--------|
+| **Minimal** | Clean editorial, serif headings | `#1A1A1A` |
+| **Neo-Brutal** | Bold borders, high contrast | `#FF3B00` |
+| **Dark/Neon** | Dark bg, glowing accents | `#00FF88` |
+| **Pastel/Soft** | Rounded, playful, warm | `#E8756A` |
+| **Luxury/Serif** | Dark gold, elegant spacing | `#C9A96E` |
+| **Retro/Pixel** | Pixel-inspired, nostalgic | `#F7C948` |
 
 ---
 
-## Security Checklist
+## 🛠️ Tech Stack
 
-- [x] Passwords hashed with bcrypt (12 rounds)
-- [x] JWTs in httpOnly, Secure, SameSite=Strict cookies
-- [x] All inputs validated with Zod server-side
-- [x] Parameterised queries — no SQL injection risk
-- [x] Ownership checks on every page endpoint (returns 404 to prevent enumeration)
-- [x] Publish/unpublish validated server-side
-- [x] Rate limiting on auth + public contact endpoints
-- [x] No secrets in client-side code
-- [x] Consistent error messages to prevent user enumeration
-- [x] Stack traces never exposed in API responses
-- [x] Soft delete — pages are recoverable
-- [x] CORS with explicit allowed origin
-- [x] Security headers via Netlify `[[headers]]`
+### Frontend
+![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-orange?style=flat-square)
+![React Query](https://img.shields.io/badge/TanStack_Query-FF4154?style=flat-square)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=flat-square&logo=framer)
+
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=flat-square&logo=JSON%20web%20tokens)
+![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat-square)
+![Netlify Functions](https://img.shields.io/badge/Netlify_Functions-00C7B7?style=flat-square&logo=netlify)
+
+### DevOps
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
+
+---
+
+## 🐳 Docker Commands
+
+```bash
+docker compose up --build          # Build and start all containers
+docker compose up                  # Start (after first build)
+docker compose down                # Stop all containers
+docker compose restart backend     # Restart only backend
+docker compose logs -f backend     # Watch backend logs
+docker compose exec backend node migrations/run.js   # Run DB migrations
+docker compose exec backend node scripts/seed.js     # Seed test data
+```
+
+---
+
+## 🔐 Security
+
+- ✅ Passwords hashed with **bcrypt** (12 rounds)
+- ✅ JWTs stored in **httpOnly, Secure, SameSite=Strict cookies**
+- ✅ All inputs validated with **Zod** server-side
+- ✅ **Parameterised queries** — no SQL injection risk
+- ✅ Ownership checks on every page endpoint
+- ✅ **Rate limiting** on auth + public contact endpoints
+- ✅ No secrets in client-side code
+- ✅ Security headers via Netlify `[[headers]]`
+
+---
+
+## 📡 API Endpoints
+
+```
+POST   /api/auth/signup
+POST   /api/auth/login
+POST   /api/auth/logout
+GET    /api/auth/me
+
+GET    /api/pages
+POST   /api/pages
+GET    /api/pages/:id
+PUT    /api/pages/:id
+DELETE /api/pages/:id
+POST   /api/pages/:id/publish
+POST   /api/pages/:id/unpublish
+POST   /api/pages/:id/duplicate
+
+GET    /api/public/pages/:slug
+POST   /api/public/pages/:slug/view
+POST   /api/public/pages/:slug/contact
+```
+
+---
+
+## 📱 Responsiveness
+
+Tested and verified at:
+- Mobile: 320px–480px ✅
+- Tablet: 768px–1024px ✅
+- Desktop: 1280px+ ✅
+
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`vibekit/backend/.env`)
+```env
+DATABASE_URL=postgresql://user:password@host:5432/vibekit
+JWT_SECRET=your-64-char-secret
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+```
+
+### Frontend (`vibekit/frontend/.env`)
+```env
+VITE_API_URL=http://localhost:8888
+```
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Sanskar Sinha**
+
+[![Portfolio](https://img.shields.io/badge/GitHub-Sanskar225-black?style=flat-square&logo=github)](https://github.com/Sanskar225)
+
+</div>
