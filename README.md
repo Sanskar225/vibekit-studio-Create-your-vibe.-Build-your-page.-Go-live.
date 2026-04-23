@@ -24,7 +24,6 @@ VibeKit Studio is a **full-stack themed page builder** where users can:
 2. 🛠️ **Build a page** — edit sections with a live preview editor
 3. 🚀 **Publish instantly** — get a public URL in one click
 
-> Built for the **Purple Merit Technologies Full Stack Vibe Coder Internship Assessment**
 
 ---
 
